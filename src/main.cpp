@@ -3,7 +3,9 @@
 #include <string_view>
 
 #include "runtime/config.h"
+#include "runtime/cpu/guest_cpu.h"
 #include "runtime/logging.h"
+#include "runtime/memory/guest_memory.h"
 #include "runtime/types.h"
 
 namespace {
@@ -95,7 +97,18 @@ int main(int argc, char* argv[]) {
         }
         chronos::LogInfo("Runtime", "Starting execution of package: {}", config.package_path.string());
         chronos::LogInfo("Runtime", "Target guest ABI: {}", chronos::ArchToString(config.target_arch));
-        // Phase 1+ integration will be hooked here
+
+        chronos::GuestMemory memory(config.target_arch);
+        chronos::LogInfo("Memory", "Initialized guest virtual memory (range: 0x{:08x} - 0x{:016x})",
+                         memory.min_address(), memory.max_address());
+
+        auto cpu = chronos::CreateGuestCpu(config.target_arch, memory);
+        if (!cpu) {
+            chronos::LogError("Runtime", "Failed to initialize guest CPU");
+            return EXIT_FAILURE;
+        }
+        chronos::LogInfo("Cpu", "Initialized guest CPU backend for {}", chronos::ArchToString(config.target_arch));
+
         return EXIT_SUCCESS;
     }
 
