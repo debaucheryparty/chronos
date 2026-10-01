@@ -4,6 +4,8 @@ bin/
 out/
 cmake-build-*/
 .ninja*
+lib/
+*.so
 
 # IDE and editor files
 .vscode/
