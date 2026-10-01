@@ -19,6 +19,7 @@ endif()
 # Core runtime library
 add_library(chronos_core
     src/core/logging.cpp
+    src/memory/guest_memory.cpp
 )
 
 target_include_directories(chronos_core
