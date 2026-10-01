@@ -1,5 +1,6 @@
 add_executable(chronos_tests
     test_main.cpp
+    test_guest_cpu.cpp
     test_guest_memory.cpp
     test_result.cpp
     test_types.cpp
