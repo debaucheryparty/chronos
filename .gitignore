@@ -1,0 +1,12 @@
+# Build directories
+build/
+bin/
+out/
+cmake-build-*/
+.ninja*
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.user
